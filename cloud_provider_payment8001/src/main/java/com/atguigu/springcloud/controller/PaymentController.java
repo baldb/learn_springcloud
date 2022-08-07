@@ -22,10 +22,8 @@ public class PaymentController {
     @Resource
     private PaymentService paymentService;
 
-    //@Resource
-    //private DiscoveryClient discoveryClient;
-
-    @Value("${server.port}")        //获取端口号
+    //获取端口号
+    @Value("${server.port}")
     private String serverPort;
 
     //前后端分离，所以不能直接返回对象，数据要先经过CommonResult封装再返回
@@ -56,46 +54,5 @@ public class PaymentController {
             return new CommonResult(444, "没有对应记录，查询ID：" + id);
         }
     }
-
-    //@GetMapping("/payment/discovery")
-    //public Object discovery(){
-    //    //获取服务列表的信息
-    //    List<String> services = discoveryClient.getServices();
-    //    for (String element : services) {
-    //        log.info("*******element：" + element);
-    //    }
-    //
-    //    //获取CLOUD-PAYMENT-SERVICE服务的所有具体实例
-    //    List<ServiceInstance> instances = discoveryClient.getInstances("CLOUD-PAYMENT-SERVICE");
-    //    for (ServiceInstance instance : instances) {
-    //        //getServiceId服务器id getHost主机名称 getPort端口号  getUri地址
-    //        log.info(instance.getServiceId() + "\t" + instance.getHost() + "\t" + instance.getPort() + "\t" + instance.getUri());
-    //    }
-    //
-    //    return this.discoveryClient;
-    //}
-
-
-    //@GetMapping("/payment/lb")
-    //public String getPaymentLB(){
-    //    return serverPort;
-    //}
-    //
-    //
-    //@GetMapping("/payment/feign/timeout")
-    //public String paymentFeignTimeout(){
-    //    try {
-    //        TimeUnit.SECONDS.sleep(3);
-    //    } catch (InterruptedException e) {
-    //        e.printStackTrace();
-    //    }
-    //    return serverPort;
-    //}
-    //
-    //
-    //@GetMapping("/payment/zipkin")
-    //public String paymentZipkin(){
-    //    return "paymentZipkin...";
-    //}
 
 }
