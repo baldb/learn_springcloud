@@ -23,4 +23,9 @@ eureka:
 #      defaultZone: http://localhost:7001/eureka  #单机注册
       #集群版 往7001，7002，7003 eureka中心注册自己
       defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka,http://eureka7003.com:7003/eureka
+    #配置ip地址名称，不配置默认为： 192.168.0.101:cloud-payment-service:8002
+  instance:
+    prefer-ip-address: true #访问路径可以显示ip地址
+    instance-id: payment8001
+
 

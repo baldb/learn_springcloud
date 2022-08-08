@@ -16,6 +16,11 @@
 # 多服务器端情况下，消费端该如何找服务器
 *     @LoadBalanced  作用： 赋予RestTemplate负载均衡的能力
 * 在消费端中的配置类ApplicationContextConfig中restTemplate()上添加@LoadBalanced注解。否则无法实现多服务器
+# 修改IP名称，一目了然服务端口
+*  配置ip地址名称，不配置默认为： 192.168.0.101:cloud-payment-service:8002
+>   *  instance:
+>   *   prefer-ip-address: true #访问路径可以显示ip地址
+>   *   instance-id: payment8001 #修改IP名
 
    
    
