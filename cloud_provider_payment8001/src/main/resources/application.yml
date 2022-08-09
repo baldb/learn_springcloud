@@ -20,12 +20,16 @@ eureka:
     register-with-eureka: true #表示是否将自己注册进EurekaServer
     fetch-registry: true #是否从EurekaServer抓取已有的注册信息，单节点无所谓，集群必须设置为true才能配合ribboon使用负载均衡
     service-url:
-#      defaultZone: http://localhost:7001/eureka  #单机注册
+      defaultZone: http://localhost:7001/eureka  #单机注册
       #集群版 往7001，7002，7003 eureka中心注册自己
-      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka,http://eureka7003.com:7003/eureka
+#      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka,http://eureka7003.com:7003/eureka
     #配置ip地址名称，不配置默认为： 192.168.0.101:cloud-payment-service:8002
   instance:
     prefer-ip-address: true #访问路径可以显示ip地址
     instance-id: payment8001
+    #Eureka客户端向服务端发送心跳的时间间隔，单位秒（默认30秒）
+    lease-renewal-interval-in-seconds: 1
+    #Eureka服务端在收到最后一次心跳后等待的时间上限，单位秒（默认90秒），超时剔除服务
+    lease-expiration-duration-in-seconds: 2
 
 

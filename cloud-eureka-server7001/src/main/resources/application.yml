@@ -10,8 +10,13 @@ eureka:
     service-url:
       #设置与eureka server 交互的地址查询服务和注册服务都需要依赖这个地址
       #几个网址代表往哪些网址注册自己
-      defaultZone: http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/
-#      defaultZone: http://eureka7001.com:7001/eureka/  表示自己注册自己，这时候就不是集群版了
+#      defaultZone: http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/
+      defaultZone: http://eureka7001.com:7001/eureka/  #表示自己注册自己，这时候就不是集群版了
+  server:
+    #将自我保护模式禁用掉，关闭自我保护机制
+    enable-self-preservation: false
+    #修改发送心跳包时间，原先90秒
+    eviction-interval-timer-in-ms: 2000
 
 #    defaultZone是固定写法，如果想自定义，需要按以下写法才行：
 #    region: eureka-server

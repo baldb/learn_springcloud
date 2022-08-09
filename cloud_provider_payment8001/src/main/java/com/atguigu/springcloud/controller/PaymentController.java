@@ -3,11 +3,14 @@ package com.atguigu.springcloud.controller;
 import com.atguigu.springcloud.entities.CommonResult;
 import com.atguigu.springcloud.entities.Payment;
 import com.atguigu.springcloud.service.PaymentService;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -25,6 +28,10 @@ public class PaymentController {
     //获取端口号
     @Value("${server.port}")
     private String serverPort;
+
+    //作用：对于注册进Eureka里面的微服务，可以通过服务发现来获取服务信息
+    @Resource
+    private DiscoveryClient discoveryClient;
 
     //前后端分离，所以不能直接返回对象，数据要先经过CommonResult封装再返回
     @PostMapping("/payment/create")
@@ -55,4 +62,21 @@ public class PaymentController {
         }
     }
 
+    @GetMapping("/payment/discovery")
+    public Object discovery(){
+        //获取服务列表的信息
+        List<String> services = discoveryClient.getServices();
+        for (String element : services) {
+            log.info("*******element：" + element);
+        }
+
+        //获取CLOUD-PAYMENT-SERVICE服务的所有具体实例
+        List<ServiceInstance> instances = discoveryClient.getInstances("CLOUD-PAYMENT-SERVICE");
+        for (ServiceInstance instance : instances) {
+            //getServiceId服务器id getHost主机名称 getPort端口号  getUri地址
+            log.info(instance.getServiceId() + "\t" + instance.getHost() + "\t" + instance.getPort() + "\t" + instance.getUri());
+        }
+
+        return this.discoveryClient;
+    }
 }
